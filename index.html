@@ -1,263 +1,646 @@
-* {
-  box-sizing: border-box;
-}
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <title>Video Hallucination Benchmark</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- 顶部导航 / Hero -->
+  <header class="site-header">
+    <div class="site-header-inner">
+      <div class="brand">
+        <div class="brand-mark"></div>
+        <span class="brand-name">VHBench</span>
+      </div>
 
-html, body {
-  margin: 0;
-  padding: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
-  background: #0f172a;
-  color: #e5e7eb;
-}
+      <nav class="top-nav">
+        <a href="#overview">概览</a>
+        <a href="#fidelity">忠实性维度</a>
+        <a href="#performance">模型表现</a>
+        <a href="#factual">事实性幻觉</a>
+        <a href="#download">资源</a>
+      </nav>
+    </div>
 
-a {
-  color: inherit;
-  text-decoration: none;
-}
+    <div class="hero">
+      <div class="hero-main">
+        <h1>Video Hallucination Benchmark</h1>
+        <p class="hero-subtitle">
+          面向多模态大模型的 <strong>忠实性幻觉</strong> &amp; <strong>事实性幻觉</strong> 评测基准。  
+          每个维度对应一组 <strong>prompt + video</strong> 样例，可扩展比较不同模型在各维度上的表现。
+        </p>
+        <div class="hero-actions">
+          <a href="#fidelity" class="btn primary">浏览维度示例</a>
+          <a href="#performance" class="btn ghost">查看模型表现</a>
+        </div>
+        <div class="hero-meta">
+          <span class="chip">视频理解</span>
+          <span class="chip">Hallucination</span>
+          <span class="chip">Benchmark</span>
+        </div>
+      </div>
 
-a:hover {
-  text-decoration: underline;
-}
+      <div class="hero-panel">
+        <div class="hero-panel-header">
+          <span class="dot red"></span>
+          <span class="dot yellow"></span>
+          <span class="dot green"></span>
+          <span class="hero-panel-title">维度一览</span>
+        </div>
+        <div class="hero-panel-body">
+          <div class="hero-stat">
+            <div class="hero-stat-label">忠实性维度</div>
+            <div class="hero-stat-value" id="hero-dim-count">18</div>
+          </div>
+          <div class="hero-stat">
+            <div class="hero-stat-label">一级类别</div>
+            <div class="hero-stat-value">4</div>
+          </div>
+          <div class="hero-stat">
+            <div class="hero-stat-label">模型对比</div>
+            <div class="hero-stat-value" id="hero-model-count">3</div>
+          </div>
+          <p class="hero-panel-desc">
+            页面以 <strong>Class1 → Class2</strong> 的结构组织忠实性幻觉，
+            同时提供一个统一的 <strong>模型表现表格</strong>，后续直接填入各模型在每个维度上的分数即可。
+          </p>
+        </div>
+      </div>
+    </div>
+  </header>
 
-/* 顶部区域 */
+  <main>
+    <!-- 概览 -->
+    <section id="overview" class="section">
+      <div class="section-header">
+        <h2>概览 Overview</h2>
+        <div class="section-tagline">What does VHBench measure?</div>
+      </div>
+      <div class="section-content two-columns">
+        <div>
+          <p>
+            本基准从 <strong>忠实性幻觉（Fidelity Hallucination）</strong> 与
+            <strong>事实性幻觉（Factual Hallucination）</strong> 两个层面评估视频多模态模型：
+          </p>
+          <ul class="bullet-list">
+            <li><strong>忠实性</strong>：回答是否忠实于视频本身？是否编造不存在的物体、动作或关系？</li>
+            <li><strong>事实性</strong>：在理解视频基础上，模型是否保持对世界知识、常识、时间线等的事实正确？</li>
+          </ul>
+          <p>
+            每个维度由 <strong>prompt + video 对</strong> 构成，可用于打分、可视化错误类型，并按模型、维度进行对比。
+          </p>
+        </div>
+        <div class="callout">
+          <h3>页面结构</h3>
+          <ol>
+            <li><strong>忠实性维度</strong>：四大类 + 细粒度 Class2，配示例。</li>
+            <li><strong>模型表现</strong>：按维度汇总不同模型的评分，可高亮 best model。</li>
+            <li><strong>事实性幻觉</strong>：预留模块，方便你后续按自己的框架补充。</li>
+          </ol>
+        </div>
+      </div>
+    </section>
 
-.site-header {
-  border-bottom: 1px solid rgba(148, 163, 184, 0.3);
-  background: radial-gradient(circle at top left, #1d4ed8, #0f172a 55%);
-}
+    <!-- 忠实性幻觉维度 -->
+    <section id="fidelity" class="section">
+      <div class="section-header">
+        <h2>忠实性幻觉维度 Fidelity</h2>
+        <div class="section-tagline">Per-dimension examples with prompt + video</div>
+      </div>
+      <p class="section-intro">
+        忠实性部分按照四大类（Class1）和细粒度维度（Class2）组织：
+        <strong>Entity Perception</strong>、
+        <strong>Action Perception</strong>、
+        <strong>Relational Reasoning</strong>、
+        <strong>Comprehensive Reasoning</strong>。
+        每个 Class1-Class2 对应一个示例。下面的卡片中，你可以为每个维度填入真实的 prompt 与本地示例视频路径。
+      </p>
 
-.site-header-inner {
-  max-width: 1120px;
-  margin: 0 auto;
-  padding: 1.5rem 1.25rem 1.75rem;
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: space-between;
-  gap: 1rem;
-}
+      <div id="fidelity-grid" class="category-grid">
+        <!-- JS 自动渲染卡片 -->
+      </div>
+    </section>
 
-.site-header h1 {
-  font-size: 1.8rem;
-  margin: 0;
-}
+    <!-- 模型表现 -->
+    <section id="performance" class="section">
+      <div class="section-header">
+        <h2>模型表现 Model Performance</h2>
+        <div class="section-tagline">Compare models across all fidelity dimensions</div>
+      </div>
 
-.subtitle {
-  margin: 0.25rem 0;
-  font-size: 0.95rem;
-  color: #cbd5f5;
-}
+      <p class="section-intro">
+        下表汇总了不同模型在各个 <strong>忠实性维度</strong> 上的表现。你只需要在数据定义中填入
+        <code>scores</code> 字段即可自动更新本表。单行中得分最高的模型会被高亮显示。
+      </p>
 
-.small {
-  margin: 0.25rem 0;
-  font-size: 0.82rem;
-  color: #9ca3af;
-}
+      <div class="perf-legend">
+        <span class="legend-dot best"></span> 行内最高分
+        <span class="legend-sep">|</span>
+        分数范围可按需要设置为准确率、平均分或通过率（0–100 等）。
+      </div>
 
-.top-nav {
-  display: flex;
-  gap: 0.75rem;
-  flex-wrap: wrap;
-}
+      <div class="table-wrapper">
+        <table class="perf-table">
+          <thead>
+            <tr id="perf-table-head-row">
+              <!-- JS 填充：Dimension + models -->
+            </tr>
+          </thead>
+          <tbody id="perf-table-body">
+            <!-- JS 填充：每个维度一行 -->
+          </tbody>
+        </table>
+      </div>
+    </section>
 
-.top-nav a {
-  padding: 0.4rem 0.8rem;
-  border-radius: 999px;
-  font-size: 0.85rem;
-  border: 1px solid rgba(148, 163, 184, 0.6);
-  background: rgba(15, 23, 42, 0.6);
-}
+    <!-- 事实性幻觉占位 -->
+    <section id="factual" class="section">
+      <div class="section-header">
+        <h2>事实性幻觉 Factual (Placeholder)</h2>
+        <div class="section-tagline">You can extend this with your own taxonomy</div>
+      </div>
+      <p class="section-intro">
+        这里预留给你后续的事实性幻觉 benchmark 展示。建议沿用和忠实性类似的设计：
+      </p>
+      <div class="section-content two-columns">
+        <div>
+          <ul class="bullet-list">
+            <li>定义一组 <strong>Class1（如 Knowledge / Temporal / Commonsense 等）</strong>。</li>
+            <li>为每个 Class1 下的 Class2 设计 <strong>prompt + video 对</strong>。</li>
+            <li>参考下面的 <code>factualData</code> 结构与渲染方式（可复制 fidelity 的代码）。</li>
+          </ul>
+        </div>
+        <div class="placeholder-box">
+          <p class="placeholder-title">TODO：事实性幻觉维度</p>
+          <p class="placeholder-text">
+            你可以在这里添加与世界知识、常识推理、时间轴一致性、外部知识检索等相关的维度，
+            并同样在“模型表现”部分增加事实性维度的比较表格。
+          </p>
+        </div>
+      </div>
+    </section>
 
-.top-nav a:hover {
-  background: rgba(30, 64, 175, 0.9);
-}
+    <!-- 下载与引用 -->
+    <section id="download" class="section">
+      <div class="section-header">
+        <h2>资源与引用 Resources</h2>
+        <div class="section-tagline">Code, data and paper</div>
+      </div>
+      <p class="section-intro">
+        发布时，你可以在这里放置代码仓库、数据集下载以及论文引用信息。
+      </p>
+      <ul class="resource-list">
+        <li><strong>Code：</strong>TODO – GitHub 仓库链接。</li>
+        <li><strong>Dataset：</strong>TODO – 数据集下载链接，本地或云端均可。</li>
+        <li><strong>Paper：</strong>TODO – 论文链接（arXiv / Conference）。</li>
+      </ul>
+    </section>
+  </main>
 
-/* Section 通用布局 */
+  <footer class="site-footer">
+    <p>© <span id="year"></span> Video Hallucination Benchmark (VHBench).</p>
+  </footer>
 
-.section {
-  max-width: 1120px;
-  margin: 0 auto;
-  padding: 2rem 1.25rem 0.5rem;
-}
+  <!-- ================= 数据 & 渲染逻辑 ================= -->
+  <script>
+    // ===== 模型列表（你可以按需修改名称） =====
+    const MODEL_LIST = [
+      "Model-A",
+      "Model-B",
+      "Model-C"
+    ];
 
-.section h2 {
-  font-size: 1.5rem;
-  margin-bottom: 0.75rem;
-}
+    // ===== 忠实性维度配置：每个 item 一个 Class1-Class2 =====
+    // scores 字段里填不同模型在该维度上的分数即可
+    const fidelityData = [
+      {
+        groupId: "entity-perception",
+        groupName: "Entity Perception",
+        groupNameZh: "实体感知",
+        description: "实体是否存在、类别识别、属性识别等相关的忠实性错误。",
+        items: [
+          {
+            id: "entity-existence",
+            name: "Entity Existence",
+            fineGrain: "Entity Existence",
+            tasks: "object_existence (MVBench)",
+            video: "videos/fidelity/entity_existence.mp4",
+            prompt: "TODO：在此填写该类别的典型 prompt，用于询问视频中实体是否存在。",
+            scores: {
+              "Model-A": 87.5,
+              "Model-B": 80.2,
+              "Model-C": 72.0
+            }
+          },
+          {
+            id: "object-recognition",
+            name: "Object Recognition",
+            fineGrain: "Object_Recognition",
+            tasks: "Object_Recognition (Video-MME)",
+            video: "videos/fidelity/object_recognition.mp4",
+            prompt: "TODO：填写用于测试视频中物体类别识别是否幻觉的 prompt。",
+            scores: {
+              "Model-A": 83.0,
+              "Model-B": 78.4,
+              "Model-C": 69.5
+            }
+          },
+          {
+            id: "static-attributes",
+            name: "Static Attributes",
+            fineGrain: "Static Attributes",
+            tasks: "Attribute_Perception (Video-MME)",
+            video: "videos/fidelity/static_attributes.mp4",
+            prompt: "TODO：填写用于测试静态属性（颜色、材质等）识别是否忠实的 prompt。",
+            scores: {
+              "Model-A": 85.6,
+              "Model-B": 79.1,
+              "Model-C": 70.3
+            }
+          },
+          {
+            id: "moving-attributes",
+            name: "Moving Attributes",
+            fineGrain: "Moving Attributes",
+            tasks: "moving_attribute (MVBench)",
+            video: "videos/fidelity/moving_attributes.mp4",
+            prompt: "TODO：填写用于测试运动相关属性（方向、速度等）的 prompt。",
+            scores: {
+              "Model-A": 81.2,
+              "Model-B": 75.0,
+              "Model-C": 66.4
+            }
+          },
+          {
+            id: "ocr",
+            name: "OCR",
+            fineGrain: "OCR",
+            tasks: "OCR_Problems (Video-MME)",
+            video: "videos/fidelity/ocr.mp4",
+            prompt: "TODO：填写用于测试视频中文字识别（OCR）是否幻觉的 prompt。",
+            scores: {
+              "Model-A": 78.3,
+              "Model-B": 70.5,
+              "Model-C": 60.1
+            }
+          },
+          {
+            id: "entity-counting",
+            name: "Entity Counting",
+            fineGrain: "Entity Counting",
+            tasks: "Counting_Problem (Video-MME), moving_count (MVBench)",
+            video: "videos/fidelity/entity_counting.mp4",
+            prompt: "TODO：填写用于测试实体数量是否识别正确的计数类 prompt。",
+            scores: {
+              "Model-A": 84.0,
+              "Model-B": 77.3,
+              "Model-C": 68.9
+            }
+          }
+        ]
+      },
+      {
+        groupId: "action-perception",
+        groupName: "Action Perception",
+        groupNameZh: "动作感知",
+        description: "侧重对动作类别、数量、姿态和运动模式的忠实性评估。",
+        items: [
+          {
+            id: "action-recognition",
+            name: "Action Recognition",
+            fineGrain: "Action_Recognition",
+            tasks: "Action_Recognition (Video-MME), fine_grained_action (MVBench), unexpected_action (MVBench), hallucination (VidHalluc), action_antonym (MVBench)",
+            video: "videos/fidelity/action_recognition.mp4",
+            prompt: "TODO：填写用于测试动作类别和细粒度动作识别的 prompt。",
+            scores: {
+              "Model-A": 82.7,
+              "Model-B": 76.4,
+              "Model-C": 67.8
+            }
+          },
+          {
+            id: "action-count",
+            name: "Action Count",
+            fineGrain: "Action count",
+            tasks: "action_count, count (TOMATO)",
+            video: "videos/fidelity/action_count.mp4",
+            prompt: "TODO：填写用于统计特定动作出现次数的 prompt。",
+            scores: {
+              "Model-A": 80.5,
+              "Model-B": 73.2,
+              "Model-C": 64.0
+            }
+          },
+          {
+            id: "pose-recognition",
+            name: "Pose Recognition",
+            fineGrain: "Pose recognition",
+            tasks: "fine_grained_pose (MVBench)",
+            video: "videos/fidelity/pose_recognition.mp4",
+            prompt: "TODO：填写用于评估人体/物体姿态识别是否忠实的 prompt。",
+            scores: {
+              "Model-A": 79.8,
+              "Model-B": 71.3,
+              "Model-C": 62.7
+            }
+          },
+          {
+            id: "motion-perception",
+            name: "Motion Perception",
+            fineGrain: "Motion Perception",
+            tasks: "velocity_frequency, shape_trend, rotation",
+            video: "videos/fidelity/motion_perception.mp4",
+            prompt: "TODO：填写用于测试运动频率、趋势、旋转等运动模式的 prompt。",
+            scores: {
+              "Model-A": 81.1,
+              "Model-B": 74.0,
+              "Model-C": 65.9
+            }
+          }
+        ]
+      },
+      {
+        groupId: "relational-reasoning",
+        groupName: "Relational Reasoning",
+        groupNameZh: "关系推理",
+        description: "关注状态变化、空间关系、时间关系以及交互关系等跨帧推理。",
+        items: [
+          {
+            id: "state-transition",
+            name: "State Transition",
+            fineGrain: "State Transition",
+            tasks: "state_change (MVBench) + Scene Transition + Hallucination (VidHalluc)",
+            video: "videos/fidelity/state_transition.mp4",
+            prompt: "TODO：填写用于评估前后状态变化是否被正确理解的 prompt。",
+            scores: {
+              "Model-A": 79.2,
+              "Model-B": 72.0,
+              "Model-C": 63.4
+            }
+          },
+          {
+            id: "spatial-relations",
+            name: "Spatial Relations",
+            fineGrain: "spatial relations (Scene Transition)",
+            tasks: "Spatial_Perception (Video-MME), Spatial_Reasoning (Video-MME), object_shuffle (MVBench)",
+            video: "videos/fidelity/spatial_relations.mp4",
+            prompt: "TODO：填写用于测试物体间空间位置关系的 prompt。",
+            scores: {
+              "Model-A": 83.6,
+              "Model-B": 77.9,
+              "Model-C": 69.3
+            }
+          },
+          {
+            id: "temporal-relations",
+            name: "Temporal Relations",
+            fineGrain: "temporal relations",
+            tasks: "Temporal_Perception (Video-MME), Temporal_Reasoning (Video-MME), action_localization (MVBench), action_sequence (MVBench), temporal sequence (VidHalluc), character_order (MVBench)",
+            video: "videos/fidelity/temporal_relations.mp4",
+            prompt: "TODO：填写用于测试时间顺序、动作先后、因果顺序等的 prompt。",
+            scores: {
+              "Model-A": 80.9,
+              "Model-B": 74.5,
+              "Model-C": 66.1
+            }
+          },
+          {
+            id: "interaction-relations",
+            name: "Interaction Relations",
+            fineGrain: "Interaction Relations",
+            tasks: "object_interaction (MVBench)",
+            video: "videos/fidelity/interaction_relations.mp4",
+            prompt: "TODO：填写用于评估多实体交互关系（例如 A 对 B 做了什么）的 prompt。",
+            scores: {
+              "Model-A": 82.1,
+              "Model-B": 75.8,
+              "Model-C": 67.0
+            }
+          }
+        ]
+      },
+      {
+        groupId: "comprehensive-reasoning",
+        groupName: "Comprehensive Reasoning",
+        groupNameZh: "综合推理",
+        description: "需要整合多帧、多实体、多关系的信息进行高层次推理。",
+        items: [
+          {
+            id: "integrative",
+            name: "Integrative",
+            fineGrain: "Integrative",
+            tasks: "episodic_reasoning (MVBench, 多帧场景), Information_Synopsis (Video-MME)",
+            video: "videos/fidelity/integrative.mp4",
+            prompt: "TODO：填写用于总结整段视频事件或信息梗概的 prompt。",
+            scores: {
+              "Model-A": 78.8,
+              "Model-B": 72.5,
+              "Model-C": 64.2
+            }
+          },
+          {
+            id: "predictive-intentional",
+            name: "Predictive & Intentional",
+            fineGrain: "Predictive & Intentional",
+            tasks: "egocentric_navigation (MVBench), Action_Reasoning (Video-MME), action_prediction (MVBench)",
+            video: "videos/fidelity/predictive_intentional.mp4",
+            prompt: "TODO：填写用于预测后续动作或推断意图的 prompt。",
+            scores: {
+              "Model-A": 80.3,
+              "Model-B": 74.1,
+              "Model-C": 65.7
+            }
+          },
+          {
+            id: "counterfactual",
+            name: "Counterfactual",
+            fineGrain: "Counterfactual",
+            tasks: "counterfactual_inference (MVBench)",
+            video: "videos/fidelity/counterfactual.mp4",
+            prompt: "TODO：填写用于反事实推理（如果……会怎样）的 prompt。",
+            scores: {
+              "Model-A": 77.9,
+              "Model-B": 70.8,
+              "Model-C": 61.9
+            }
+          }
+        ]
+      }
+    ];
 
-.section p {
-  font-size: 0.95rem;
-  line-height: 1.7;
-  color: #e5e7eb;
-}
+    // 扁平化列表，方便后面构建模型表现表格
+    const fidelityFlat = [];
+    fidelityData.forEach(group => {
+      group.items.forEach(item => {
+        fidelityFlat.push({
+          ...item,
+          class1: group.groupName,
+          class1Zh: group.groupNameZh
+        });
+      });
+    });
 
-/* 分类块 */
+    // ===== 渲染忠实性维度卡片 =====
+    function renderFidelity() {
+      const container = document.getElementById("fidelity-grid");
+      if (!container) return;
 
-.category-grid {
-  display: flex;
-  flex-direction: column;
-  gap: 1.75rem;
-  margin-top: 1.5rem;
-}
+      fidelityData.forEach(group => {
+        const section = document.createElement("section");
+        section.className = "group-section";
+        section.id = group.groupId;
 
-.group-section {
-  border-radius: 1.25rem;
-  padding: 1.25rem 1.25rem 1rem;
-  background: linear-gradient(135deg, rgba(30, 64, 175, 0.35), rgba(15, 23, 42, 0.95));
-  border: 1px solid rgba(148, 163, 184, 0.5);
-  box-shadow: 0 18px 40px rgba(15, 23, 42, 0.7);
-}
+        const header = document.createElement("div");
+        header.className = "group-header";
 
-.group-header h3 {
-  margin: 0 0 0.25rem;
-  font-size: 1.15rem;
-}
+        const titleRow = document.createElement("div");
+        titleRow.className = "group-title-row";
+        titleRow.innerHTML = `
+          <h3>${group.groupName}</h3>
+          <span class="group-tag">${group.groupNameZh}</span>
+        `;
+        header.appendChild(titleRow);
 
-.group-description {
-  margin: 0 0 0.75rem;
-  font-size: 0.9rem;
-  color: #d1d5db;
-}
+        const desc = document.createElement("p");
+        desc.className = "group-description";
+        desc.textContent = group.description;
+        header.appendChild(desc);
 
-/* 卡片网格 */
+        section.appendChild(header);
 
-.card-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 1rem;
-}
+        const cardGrid = document.createElement("div");
+        cardGrid.className = "card-grid";
 
-.example-card {
-  background: rgba(15, 23, 42, 0.9);
-  border-radius: 1rem;
-  padding: 0.9rem 0.9rem 0.7rem;
-  border: 1px solid rgba(148, 163, 184, 0.6);
-  display: flex;
-  flex-direction: column;
-  gap: 0.4rem;
-}
+        group.items.forEach(item => {
+          const card = document.createElement("article");
+          card.className = "example-card";
+          card.setAttribute("data-id", item.id);
 
-.example-title {
-  margin: 0;
-  font-size: 1rem;
-}
+          card.innerHTML = `
+            <div class="card-top">
+              <h4 class="example-title">${item.name}</h4>
+              <span class="badge">Class2</span>
+            </div>
+            <p class="example-meta">${item.fineGrain}</p>
+            <p class="tasks"><strong>相关任务：</strong>${item.tasks}</p>
 
-.example-meta {
-  margin: 0;
-  font-size: 0.8rem;
-}
+            <details class="example-details">
+              <summary>查看示例（prompt + video）</summary>
+              <div class="example-body">
+                <div class="example-prompt">
+                  <strong>Prompt 示例</strong>
+                  <pre>${item.prompt}</pre>
+                  <p class="tip">
+                    提示：你的 benchmark 每个样本本身就是 <strong>prompt + 视频</strong> 对，
+                    可以直接把实际使用的 prompt 填到这里。
+                  </p>
+                </div>
+                <div class="example-video">
+                  <strong>示例视频</strong>
+                  <video controls preload="metadata">
+                    <source src="${item.video}" type="video/mp4" />
+                    当前浏览器不支持 video 标签，请尝试下载视频或使用现代浏览器。
+                  </video>
+                  <p class="video-path">
+                    视频路径：<code>${item.video}</code>
+                  </p>
+                </div>
+              </div>
+            </details>
+          `;
 
-.badge {
-  display: inline-block;
-  padding: 0.1rem 0.5rem;
-  border-radius: 999px;
-  background: rgba(37, 99, 235, 0.25);
-  border: 1px solid rgba(96, 165, 250, 0.7);
-  font-size: 0.75rem;
-}
+          cardGrid.appendChild(card);
+        });
 
-.tasks {
-  font-size: 0.8rem;
-  margin: 0;
-  color: #cbd5f5;
-}
+        section.appendChild(cardGrid);
+        container.appendChild(section);
+      });
+    }
 
-/* details 展开内容 */
+    // ===== 渲染模型表现表格 =====
+    function renderPerformanceTable() {
+      const headRow = document.getElementById("perf-table-head-row");
+      const body = document.getElementById("perf-table-body");
+      if (!headRow || !body) return;
 
-.example-details {
-  margin-top: 0.5rem;
-  font-size: 0.85rem;
-}
+      headRow.innerHTML = "";
+      body.innerHTML = "";
 
-.example-details > summary {
-  cursor: pointer;
-  list-style: none;
-  font-weight: 500;
-  padding: 0.35rem 0.55rem;
-  border-radius: 999px;
-  background: rgba(30, 64, 175, 0.7);
-  display: inline-block;
-}
+      // 表头：维度 + 模型
+      const dimTh = document.createElement("th");
+      dimTh.textContent = "Dimension";
+      headRow.appendChild(dimTh);
 
-.example-details > summary::-webkit-details-marker {
-  display: none;
-}
+      MODEL_LIST.forEach(model => {
+        const th = document.createElement("th");
+        th.textContent = model;
+        headRow.appendChild(th);
+      });
 
-.example-details[open] > summary {
-  background: rgba(37, 99, 235, 0.95);
-}
+      // 每个维度一行
+      fidelityFlat.forEach(item => {
+        const tr = document.createElement("tr");
 
-.example-body {
-  margin-top: 0.6rem;
-  border-radius: 0.75rem;
-  padding: 0.6rem 0.6rem 0.5rem;
-  background: rgba(15, 23, 42, 0.95);
-  border: 1px dashed rgba(148, 163, 184, 0.6);
-  display: flex;
-  flex-direction: column;
-  gap: 0.6rem;
-}
+        const labelTd = document.createElement("td");
+        labelTd.innerHTML = `
+          <div class="dim-name">${item.name}</div>
+          <div class="dim-meta">${item.class1} / ${item.fineGrain}</div>
+        `;
+        tr.appendChild(labelTd);
 
-.example-prompt pre {
-  margin: 0.3rem 0 0.3rem;
-  padding: 0.4rem 0.5rem;
-  border-radius: 0.5rem;
-  background: rgba(15, 23, 42, 0.95);
-  border: 1px solid rgba(55, 65, 81, 0.9);
-  font-size: 0.8rem;
-  max-height: 180px;
-  overflow: auto;
-  white-space: pre-wrap;
-  word-break: break-word;
-}
+        let maxScore = -Infinity;
+        const cells = [];
 
-.tip {
-  margin: 0;
-  font-size: 0.78rem;
-  color: #9ca3af;
-}
+        MODEL_LIST.forEach(model => {
+          const td = document.createElement("td");
+          const val = item.scores && typeof item.scores[model] === "number"
+            ? item.scores[model]
+            : null;
 
-.example-video video {
-  width: 100%;
-  max-height: 200px;
-  border-radius: 0.6rem;
-  border: 1px solid rgba(55, 65, 81, 0.9);
-  background: #000;
-}
+          if (val !== null) {
+            td.textContent = val.toFixed(1);
+            td.dataset.score = val.toString();
+            if (val > maxScore) {
+              maxScore = val;
+            }
+          } else {
+            td.textContent = "—";
+            td.classList.add("score-empty");
+          }
+          cells.push(td);
+          tr.appendChild(td);
+        });
 
-.video-path {
-  margin: 0.25rem 0 0;
-  font-size: 0.78rem;
-  color: #9ca3af;
-}
+        // 高亮行内最高分
+        if (maxScore > -Infinity) {
+          cells.forEach(td => {
+            const v = parseFloat(td.dataset.score);
+            if (!isNaN(v) && v === maxScore) {
+              td.classList.add("score-best");
+            }
+          });
+        }
 
-/* 占位块（事实性部分） */
+        body.appendChild(tr);
+      });
 
-.placeholder-box {
-  margin-top: 1rem;
-  padding: 1rem;
-  border-radius: 1rem;
-  border: 1px dashed rgba(148, 163, 184, 0.7);
-  background: rgba(15, 23, 42, 0.85);
-}
+      // 更新 hero 中的数量
+      const heroDimCount = document.getElementById("hero-dim-count");
+      const heroModelCount = document.getElementById("hero-model-count");
+      if (heroDimCount) heroDimCount.textContent = fidelityFlat.length.toString();
+      if (heroModelCount) heroModelCount.textContent = MODEL_LIST.length.toString();
+    }
 
-.placeholder-title {
-  margin: 0 0 0.25rem;
-  font-weight: 600;
-}
+    // ===== 初始化 =====
+    document.addEventListener("DOMContentLoaded", () => {
+      const yearSpan = document.getElementById("year");
+      if (yearSpan) yearSpan.textContent = new Date().getFullYear().toString();
 
-.placeholder-text {
-  margin: 0;
-  font-size: 0.9rem;
-  color: #d1d5db;
-}
-
-/* 页脚 */
-
-.site-footer {
-  max-width: 1120px;
-  margin: 0 auto;
-  padding: 1.5rem 1.25rem 2rem;
-  font-size: 0.8rem;
-  color: #9ca3af;
-}
+      renderFidelity();
+      renderPerformanceTable();
+    });
+  </script>
+</body>
+</html>
