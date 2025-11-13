@@ -64,6 +64,82 @@
 
     <main>
 
+
+        <section class="section" id="leaderboard">
+    <div class="section-header">
+        <h2>Benchmark Leaderboard</h2>
+    </div>
+    <p class="section-intro">
+        这里展示了主流视频大模型在 V-HalluBench 上的评测表现。分数越高代表模型表现越好，幻觉越少。
+    </p>
+
+    <div class="perf-legend">
+        <div class="legend-dot best"></div>
+        <span>= 该维度的最佳表现</span>
+        <span class="legend-sep">|</span>
+        <span class="score-empty">TBD = 待评测</span>
+    </div>
+
+    <div class="table-wrapper">
+        <table class="perf-table">
+            <thead>
+                <tr>
+                    <th>模型 (Model)</th>
+                    <th>总分 (Overall)</th>
+                    <th>Faithfulness</th>
+                    <th>Factual</th>
+                    <th>Entity Perception</th>
+                    <th>Action Perception</th>
+                    <th>Relational</th>
+                    <th>Comprehensive</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        <div class="dim-name">Video-LLM-A (Example)</div>
+                        <div class="dim-meta">175B Parameters</div>
+                    </td>
+                    <td class="score-best">85.2</td>
+                    <td class="score-best">88.0</td>
+                    <td>80.5</td>
+                    <td class="score-best">90.1</td>
+                    <td>85.3</td>
+                    <td>82.1</td>
+                    <td class="score-best">79.0</td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="dim-name">Video-LLM-B (Example)</div>
+                        <div class="dim-meta">70B Parameters</div>
+                    </td>
+                    <td>82.1</td>
+                    <td>85.0</td>
+                    <td class="score-best">81.0</td>
+                    <td>88.2</td>
+                    <td class="score-best">86.0</td>
+                    <td>80.5</td>
+                    <td>75.0</td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="dim-name">Video-LLM-C (Example)</div>
+                        <div class="dim-meta">13B Parameters</div>
+                    </td>
+                    <td class="score-empty">TBD</td>
+                    <td class="score-empty">TBD</td>
+                    <td class="score-empty">TBD</td>
+                    <td class="score-empty">TBD</td>
+                    <td class="score-empty">TBD</td>
+                    <td class="score-empty">TBD</td>
+                    <td class="score-empty">TBD</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</section>
+
+        
         <section class="section" id="faithfulness">
             <div class="section-header">
                 <h2>Faithfulness</h2>
