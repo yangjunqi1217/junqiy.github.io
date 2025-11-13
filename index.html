@@ -7,8 +7,353 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <h1>Video Hallucination Benchmark</h1>
-  <p>这里将展示：忠实性幻觉 + 事实性幻觉 的 benchmark 示例。</p>
-  <p>后面我们会在这里加上完整的分类框架、prompt + video 示例。</p>
+  <!-- 顶部导航 -->
+  <header class="site-header">
+    <div class="site-header-inner">
+      <div>
+        <h1>Video Hallucination Benchmark</h1>
+        <p class="subtitle">忠实性幻觉 &amp; 事实性幻觉&nbsp;评估基准</p>
+        <p class="small">
+          页面示例：每个 <strong>Class1-Class2</strong> 都有一个 <strong>prompt + video</strong> 示例。
+          数据和视频目前假定都在本地仓库中。
+        </p>
+      </div>
+      <nav class="top-nav">
+        <a href="#overview">概览</a>
+        <a href="#fidelity">忠实性幻觉</a>
+        <a href="#factual">事实性幻觉</a>
+        <a href="#download">下载与引用</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <!-- 概览 -->
+    <section id="overview" class="section">
+      <h2>概览 Overview</h2>
+      <p>
+        本仓库用于展示我们的视频幻觉评估基准，包括
+        <strong>忠实性幻觉（Fidelity Hallucination）</strong> 与
+        <strong>事实性幻觉（Factual Hallucination）</strong> 两个部分。
+      </p>
+      <p>
+        忠实性幻觉侧重 <em>模型输出是否忠实于输入视频内容</em>，
+        每个维度给出一个典型的 <strong>prompt + video 对</strong>，用于直观展示 benchmark 的设置。
+      </p>
+      <p>
+        事实性幻觉部分目前只预留结构，方便你后续根据实际数据集补充。
+      </p>
+    </section>
+
+    <!-- 忠实性幻觉 -->
+    <section id="fidelity" class="section">
+      <h2>忠实性幻觉（Fidelity Hallucination）</h2>
+      <p>
+        忠实性部分按照四大类（Class1）和细粒度维度（Class2）组织：
+        <strong>Entity Perception</strong>、
+        <strong>Action Perception</strong>、
+        <strong>Relational Reasoning</strong>、
+        <strong>Comprehensive Reasoning</strong>。
+        每个 Class1-Class2 对应一个示例。你可以在下方卡片中填入真实的 prompt 和视频路径。
+      </p>
+
+      <div id="fidelity-grid" class="category-grid">
+        <!-- JavaScript 会在这里自动插入所有卡片 -->
+      </div>
+    </section>
+
+    <!-- 事实性幻觉（占位） -->
+    <section id="factual" class="section">
+      <h2>事实性幻觉（Factual Hallucination）</h2>
+      <p>
+        这里预留给你后续的事实性幻觉 benchmark 展示。你可以完全复用忠实性部分的结构：
+      </p>
+      <ol>
+        <li>根据你的事实性分类框架，定义一个 <code>factualData</code> 数组。</li>
+        <li>仿照 <code>renderFidelity()</code> 写一个 <code>renderFactual()</code> 函数。</li>
+        <li>用本地视频路径替换每个示例中的 <code>video</code> 字段。</li>
+      </ol>
+
+      <div class="placeholder-box">
+        <p class="placeholder-title">TODO：在这里添加事实性幻觉的示例展示</p>
+        <p class="placeholder-text">
+          例如可以设计 <code>Knowledge</code> / <code>Temporal</code> / <code>Commonsense</code> 等 Class1，
+          每个下面再细分 Class2，并为每个维度给出一对 <strong>prompt + video</strong> 示例。
+        </p>
+      </div>
+    </section>
+
+    <!-- 下载与引用 -->
+    <section id="download" class="section">
+      <h2>下载与引用</h2>
+      <p>
+        你可以在这里放置数据集下载链接、BibTeX 引用等信息。
+        发布时只需要把下面的占位内容替换成真实链接即可。
+      </p>
+      <ul>
+        <li><strong>Benchmark 代码：</strong>（TODO：GitHub 地址）</li>
+        <li><strong>数据集下载：</strong>（TODO：下载链接）</li>
+        <li><strong>论文：</strong>（TODO：arXiv / 会议链接）</li>
+      </ul>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>© <span id="year"></span> Video Hallucination Benchmark. Built for GitHub Pages.</p>
+  </footer>
+
+  <!-- ========== 数据 & 渲染逻辑 ========== -->
+  <script>
+    // 忠实性幻觉：分类框架 + 示例配置
+    // 每个 item 对应一个 Class1-Class2 示例
+    const fidelityData = [
+      {
+        groupId: "entity-perception",
+        groupName: "Entity Perception",
+        groupNameZh: "实体感知",
+        description: "实体是否存在、类别识别、属性识别等相关的忠实性错误。",
+        items: [
+          {
+            id: "entity-existence",
+            name: "Entity Existence",
+            fineGrain: "Entity Existence",
+            tasks: "object_existence (MVBench)",
+            video: "videos/fidelity/entity_existence.mp4",
+            prompt: "TODO：在此填写该类别的典型 prompt，用于询问视频中实体是否存在。"
+          },
+          {
+            id: "object-recognition",
+            name: "Object_Recognition",
+            fineGrain: "Object_Recognition",
+            tasks: "Object_Recognition (Video-MME)",
+            video: "videos/fidelity/object_recognition.mp4",
+            prompt: "TODO：填写用于测试视频中物体类别识别是否幻觉的 prompt。"
+          },
+          {
+            id: "static-attributes",
+            name: "Static Attributes",
+            fineGrain: "Static Attributes",
+            tasks: "Attribute_Perception (Video-MME)",
+            video: "videos/fidelity/static_attributes.mp4",
+            prompt: "TODO：填写用于测试静态属性（颜色、材质等）识别是否忠实的 prompt。"
+          },
+          {
+            id: "moving-attributes",
+            name: "Moving Attributes",
+            fineGrain: "Moving Attributes",
+            tasks: "moving_attribute (MVBench)",
+            video: "videos/fidelity/moving_attributes.mp4",
+            prompt: "TODO：填写用于测试运动相关属性（方向、速度等）的 prompt。"
+          },
+          {
+            id: "ocr",
+            name: "OCR",
+            fineGrain: "OCR",
+            tasks: "OCR_Problems (Video-MME)",
+            video: "videos/fidelity/ocr.mp4",
+            prompt: "TODO：填写用于测试视频中文字识别（OCR）是否幻觉的 prompt。"
+          },
+          {
+            id: "entity-counting",
+            name: "Entity Counting",
+            fineGrain: "Entity Counting",
+            tasks: "Counting_Problem (Video-MME), moving_count (MVBench)",
+            video: "videos/fidelity/entity_counting.mp4",
+            prompt: "TODO：填写用于测试实体数量是否识别正确的计数类 prompt。"
+          }
+        ]
+      },
+      {
+        groupId: "action-perception",
+        groupName: "Action Perception",
+        groupNameZh: "动作感知",
+        description: "侧重对动作类别、数量、姿态和运动模式的忠实性评估。",
+        items: [
+          {
+            id: "action-recognition",
+            name: "Action_Recognition",
+            fineGrain: "Action_Recognition",
+            tasks: "Action_Recognition (Video-MME), fine_grained_action (MVBench), unexpected_action (MVBench), hallucination (VidHalluc), action_antonym (MVBench)",
+            video: "videos/fidelity/action_recognition.mp4",
+            prompt: "TODO：填写用于测试动作类别和细粒度动作识别的 prompt。"
+          },
+          {
+            id: "action-count",
+            name: "Action count",
+            fineGrain: "Action count",
+            tasks: "action_count, count (TOMATO)",
+            video: "videos/fidelity/action_count.mp4",
+            prompt: "TODO：填写用于统计特定动作出现次数的 prompt。"
+          },
+          {
+            id: "pose-recognition",
+            name: "Pose recognition",
+            fineGrain: "Pose recognition",
+            tasks: "fine_grained_pose (MVBench)",
+            video: "videos/fidelity/pose_recognition.mp4",
+            prompt: "TODO：填写用于评估人体/物体姿态识别是否忠实的 prompt。"
+          },
+          {
+            id: "motion-perception",
+            name: "Motion Perception",
+            fineGrain: "Motion Perception",
+            tasks: "velocity_frequency, shape_trend, rotation",
+            video: "videos/fidelity/motion_perception.mp4",
+            prompt: "TODO：填写用于测试运动频率、趋势、旋转等运动模式的 prompt。"
+          }
+        ]
+      },
+      {
+        groupId: "relational-reasoning",
+        groupName: "Relational Reasoning",
+        groupNameZh: "关系推理",
+        description: "关注状态变化、空间关系、时间关系以及交互关系等跨帧推理。",
+        items: [
+          {
+            id: "state-transition",
+            name: "State Transition",
+            fineGrain: "State Transition",
+            tasks: "state_change (MVBench) + Scene Transition + Hallucination (VidHalluc)",
+            video: "videos/fidelity/state_transition.mp4",
+            prompt: "TODO：填写用于评估前后状态变化是否被正确理解的 prompt。"
+          },
+          {
+            id: "spatial-relations",
+            name: "spatial relations (Scene Transition)",
+            fineGrain: "spatial relations (Scene Transition)",
+            tasks: "Spatial_Perception (Video-MME), Spatial_Reasoning (Video-MME), object_shuffle (MVBench)",
+            video: "videos/fidelity/spatial_relations.mp4",
+            prompt: "TODO：填写用于测试物体间空间位置关系的 prompt。"
+          },
+          {
+            id: "temporal-relations",
+            name: "temporal relations",
+            fineGrain: "temporal relations",
+            tasks: "Temporal_Perception (Video-MME), Temporal_Reasoning (Video-MME), action_localization (MVBench), action_sequence (MVBench), temporal sequence (VidHalluc), character_order (MVBench)",
+            video: "videos/fidelity/temporal_relations.mp4",
+            prompt: "TODO：填写用于测试时间顺序、动作先后、因果顺序等的 prompt。"
+          },
+          {
+            id: "interaction-relations",
+            name: "Interaction Relations",
+            fineGrain: "Interaction Relations",
+            tasks: "object_interaction (MVBench)",
+            video: "videos/fidelity/interaction_relations.mp4",
+            prompt: "TODO：填写用于评估多实体交互关系（例如 A 对 B 做了什么）的 prompt。"
+          }
+        ]
+      },
+      {
+        groupId: "comprehensive-reasoning",
+        groupName: "Comprehensive Reasoning",
+        groupNameZh: "综合推理",
+        description: "需要整合多帧、多实体、多关系的信息进行高层次推理。",
+        items: [
+          {
+            id: "integrative",
+            name: "Integrative",
+            fineGrain: "Integrative",
+            tasks: "episodic_reasoning (MVBench, 多帧场景), Information_Synopsis (Video-MME)",
+            video: "videos/fidelity/integrative.mp4",
+            prompt: "TODO：填写用于总结整段视频事件或信息梗概的 prompt。"
+          },
+          {
+            id: "predictive-intentional",
+            name: "Predictive & Intentional",
+            fineGrain: "Predictive & Intentional",
+            tasks: "egocentric_navigation (MVBench), Action_Reasoning (Video-MME), action_prediction (MVBench)",
+            video: "videos/fidelity/predictive_intentional.mp4",
+            prompt: "TODO：填写用于预测后续动作或推断意图的 prompt。"
+          },
+          {
+            id: "counterfactual",
+            name: "Counterfactual",
+            fineGrain: "Counterfactual",
+            tasks: "counterfactual_inference (MVBench)",
+            video: "videos/fidelity/counterfactual.mp4",
+            prompt: "TODO：填写用于反事实推理（如果……会怎样）的 prompt。"
+          }
+        ]
+      }
+    ];
+
+    // 渲染忠实性部分
+    function renderFidelity() {
+      const container = document.getElementById("fidelity-grid");
+      if (!container) return;
+
+      fidelityData.forEach(group => {
+        const section = document.createElement("section");
+        section.className = "group-section";
+        section.id = group.groupId;
+
+        const header = document.createElement("div");
+        header.className = "group-header";
+
+        const title = document.createElement("h3");
+        title.textContent = `${group.groupName} (${group.groupNameZh})`;
+        header.appendChild(title);
+
+        const desc = document.createElement("p");
+        desc.className = "group-description";
+        desc.textContent = group.description;
+        header.appendChild(desc);
+
+        section.appendChild(header);
+
+        const cardGrid = document.createElement("div");
+        cardGrid.className = "card-grid";
+
+        group.items.forEach(item => {
+          const card = document.createElement("article");
+          card.className = "example-card";
+          card.setAttribute("data-id", item.id);
+
+          card.innerHTML = `
+            <h4 class="example-title">${item.name}</h4>
+            <p class="example-meta">
+              <span class="badge">Class2: ${item.fineGrain}</span>
+            </p>
+            <p class="tasks"><strong>相关任务：</strong>${item.tasks}</p>
+            <details class="example-details">
+              <summary>展开查看示例（prompt + video）</summary>
+              <div class="example-body">
+                <div class="example-prompt">
+                  <strong>Prompt 示例：</strong>
+                  <pre>${item.prompt}</pre>
+                  <p class="tip">
+                    提示：你的 benchmark 每个样本本身就是 <strong>prompt + 视频</strong> 对，
+                    可以直接把实际使用的 prompt 填到这里。
+                  </p>
+                </div>
+                <div class="example-video">
+                  <strong>示例视频：</strong>
+                  <video controls preload="metadata">
+                    <source src="${item.video}" type="video/mp4" />
+                    当前浏览器不支持 video 标签，请尝试下载视频或使用现代浏览器。
+                  </video>
+                  <p class="video-path">
+                    视频路径：<code>${item.video}</code>（请将实际示例视频放到对应位置）
+                  </p>
+                </div>
+              </div>
+            </details>
+          `;
+
+          cardGrid.appendChild(card);
+        });
+
+        section.appendChild(cardGrid);
+        container.appendChild(section);
+      });
+    }
+
+    // 设置年份 & 渲染
+    document.addEventListener("DOMContentLoaded", () => {
+      const yearSpan = document.getElementById("year");
+      if (yearSpan) yearSpan.textContent = new Date().getFullYear();
+      renderFidelity();
+    });
+  </script>
 </body>
 </html>
