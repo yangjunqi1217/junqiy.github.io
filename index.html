@@ -15,8 +15,8 @@
                 <span class="brand-name">V-HalluBench</span>
             </div>
             <nav class="top-nav">
-                <a href="#faithfulness">忠实性幻觉</a>
-                <a href="#factual">事实性幻觉</a>
+                <a href="#faithfulness">Faithfulness</a>
+                <a href="#factual">Factual Hallucination</a>
                 <a href="#">相关论文</a>
                 <a href="#">GitHub</a>
             </nav>
@@ -48,11 +48,11 @@
             </div>
             <div class="hero-panel-body">
                 <div class="hero-stat">
-                    <span class="hero-stat-label">忠实性 (Faithfulness)</span>
+                    <span class="hero-stat-label">Faithfulness</span>
                     <span class="hero-stat-value">820</span>
                 </div>
                 <div class="hero-stat">
-                    <span class="hero-stat-label">事实性 (Factual)</span>
+                    <span class="hero-stat-label">Factual</span>
                     <span class="hero-stat-value">TBD</span>
                 </div>
                 <p class="hero-panel-desc">
@@ -66,7 +66,7 @@
 
         <section class="section" id="faithfulness">
             <div class="section-header">
-                <h2>忠实性幻觉 (Faithfulness Hallucination)</h2>
+                <h2>Faithfulness</h2>
             </div>
             <p class="section-intro">
                 评估模型生成的内容是否忠实于视频中提供的视觉信息。
@@ -77,15 +77,13 @@
                 <div class="group-section">
                     <div class="group-header">
                         <div class="group-title-row">
-                            <h3>实体感知 (Entity Perception)</h3>
-                            <span class="group-tag">6 个维度</span>
+                            <h3>Entity Existence</h3>
+                            <span class="group-tag">Entity Perception</span>
                         </div>
+                        <p class="group-description">Tasks: object_existence(MVBench)</p>
                     </div>
                     <div class="card-grid">
-                        
                         <article class="example-card">
-                            <h4 class="example-title">Entity Existence</h4>
-                            <p class="tasks">Tasks: object_existence(MVBench)</p>
                             <details class="example-details">
                                 <summary>查看示例</summary>
                                 <div class="example-body">
@@ -100,10 +98,19 @@
                                 </div>
                             </details>
                         </article>
+                    </div>
+                </div>
 
+                <div class="group-section">
+                    <div class="group-header">
+                        <div class="group-title-row">
+                            <h3>Object Recognition</h3>
+                            <span class="group-tag">Entity Perception</span>
+                        </div>
+                        <p class="group-description">Tasks: Object_Recognition(Video-MME)</p>
+                    </div>
+                    <div class="card-grid">
                         <article class="example-card">
-                            <h4 class="example-title">Object Recognition</h4>
-                            <p class="tasks">Tasks: Object_Recognition(Video-MME)</p>
                             <details class="example-details">
                                 <summary>查看示例</summary>
                                 <div class="example-body">
@@ -118,54 +125,32 @@
                                 </div>
                             </details>
                         </article>
-
-                        <article class="example-card">
-                            <h4 class="example-title">Static Attributes</h4>
-                            <p class="tasks">Tasks: Attribute_Perception(Video-MME)</p>
-                        </article>
-                        <article class="example-card">
-                            <h4 class="example-title">Moving Attributes</h4>
-                            <p class="tasks">Tasks: moving_attribute(MVBench)</p>
-                        </article>
-                        <article class="example-card">
-                            <h4 class="example-title">OCR</h4>
-                            <p class="tasks">Tasks: OCR_Problems(Video-MME)</p>
-                        </article>
-                        <article class="example-card">
-                            <h4 class="example-title">Entity Counting</h4>
-                            <p class="tasks">Tasks: Counting_Problem(Video-MME)</p>
-                        </article>
-
                     </div>
                 </div>
 
                 <div class="group-section">
                     <div class="group-header">
                         <div class="group-title-row">
-                            <h3>动作感知 (Action Perception)</h3>
-                            <span class="group-tag">5 个维度</span>
+                            <h3>Static Attributes</h3>
+                            <span class="group-tag">Entity Perception</span>
                         </div>
+                        <p class="group-description">Tasks: Attribute_Perception(Video-MME)</p>
                     </div>
                     <div class="card-grid">
                         <article class="example-card">
-                            <h4 class="example-title">Action Recognition</h4>
-                            <p class="tasks">Tasks: Action_Recognition(Video-MME)</p>
-                        </article>
-                        <article class="example-card">
-                            <h4 class="example-title">Action count</h4>
-                            <p class="tasks">Tasks: action_count(TOMATO)</p>
-                        </article>
-                        <article class="example-card">
-                            <h4 class="example-title">Pose recognition</h4>
-                            <p class="tasks">Tasks: fine_grained_pose(MVBench)</p>
-                        </article>
-                        <article class="example-card">
-                            <h4 class="example-title">Motion Perception</h4>
-                            <p class="tasks">Tasks: velocity_frequency, shape_trend</p>
-                        </article>
-                        <article class="example-card">
-                            <h4 class="example-title">State Transition</h4>
-                            <p class="tasks">Tasks: state_change(MVBench)</p>
+                            <details class="example-details">
+                                <summary>查看示例</summary>
+                                <div class="example-body">
+                                    <div class="example-prompt">
+                                        <p class="tip">Prompt:</p>
+                                        <pre>视频中汽车是什么颜色的？</pre>
+                                    </div>
+                                    <div class="example-video">
+                                        <video controls muted preload="metadata" src="videos/static_attributes.mp4"></video>
+                                        <p class="video-path">videos/static_attributes.mp4</p>
+                                    </div>
+                                </div>
+                            </details>
                         </article>
                     </div>
                 </div>
@@ -173,22 +158,26 @@
                 <div class="group-section">
                     <div class="group-header">
                         <div class="group-title-row">
-                            <h3>关系推理 (Relational Reasoning)</h3>
-                            <span class="group-tag">3 个维度</span>
+                            <h3>Moving Attributes</h3>
+                            <span class="group-tag">Entity Perception</span>
                         </div>
+                        <p class="group-description">Tasks: moving_attribute(MVBench)</p>
                     </div>
                     <div class="card-grid">
                         <article class="example-card">
-                            <h4 class="example-title">Spatial relations</h4>
-                            <p class="tasks">Tasks: Spatial_Perception(Video-MME)</p>
-                        </article>
-                        <article class="example-card">
-                            <h4 class="example-title">Temporal relations</h4>
-                            <p class="tasks">Tasks: Temporal_Perception(Video-MME)</p>
-                        </article>
-                        <article class="example-card">
-                            <h4 class="example-title">Interaction Relations</h4>
-                            <p class="tasks">Tasks: object_interaction(MVBench)</p>
+                            <details class="example-details">
+                                <summary>查看示例</summary>
+                                <div class="example-body">
+                                    <div class="example-prompt">
+                                        <p class="tip">Prompt:</p>
+                                        <pre>描述一下那只鸟的飞行轨迹。</pre>
+                                    </div>
+                                    <div class="example-video">
+                                        <video controls muted preload="metadata" src="videos/moving_attributes.mp4"></video>
+                                        <p class="video-path">videos/moving_attributes.mp4</p>
+                                    </div>
+                                </div>
+                            </details>
                         </article>
                     </div>
                 </div>
@@ -196,22 +185,350 @@
                 <div class="group-section">
                     <div class="group-header">
                         <div class="group-title-row">
-                            <h3>综合推理 (Comprehensive Reasoning)</h3>
-                            <span class="group-tag">3 个维度</span>
+                            <h3>OCR</h3>
+                            <span class="group-tag">Entity Perception</span>
                         </div>
+                        <p class="group-description">Tasks: OCR_Problems(Video-MME)</p>
                     </div>
                     <div class="card-grid">
                         <article class="example-card">
-                            <h4 class="example-title">Integrative</h4>
-                            <p class="tasks">Tasks: episodic_reasoning(MVBench)</p>
+                            <details class="example-details">
+                                <summary>查看示例</summary>
+                                <div class="example-body">
+                                    <div class="example-prompt">
+                                        <p class="tip">Prompt:</p>
+                                        <pre>视频中路标上的文字是什么？</pre>
+                                    </div>
+                                    <div class="example-video">
+                                        <video controls muted preload="metadata" src="videos/ocr.mp4"></video>
+                                        <p class="video-path">videos/ocr.mp4</p>
+                                    </div>
+                                </div>
+                            </details>
                         </article>
+                    </div>
+                </div>
+
+                <div class="group-section">
+                    <div class="group-header">
+                        <div class="group-title-row">
+                            <h3>Entity Counting</h3>
+                            <span class="group-tag">Entity Perception</span>
+                        </div>
+                        <p class="group-description">Tasks: Counting_Problem(Video-MME), moving_count(MVbench)</p>
+                    </div>
+                    <div class="card-grid">
                         <article class="example-card">
-                            <h4 class="example-title">Predictive & Intentional</h4>
-                            <p class="tasks">Tasks: egocentric_navigation(MVBench)</p>
+                            <details class="example-details">
+                                <summary>查看示例</summary>
+                                <div class="example-body">
+                                    <div class="example-prompt">
+                                        <p class="tip">Prompt:</p>
+                                        <pre>视频中总共出现了多少辆自行车？</pre>
+                                    </div>
+                                    <div class="example-video">
+                                        <video controls muted preload="metadata" src="videos/entity_counting.mp4"></video>
+                                        <p class="video-path">videos/entity_counting.mp4</p>
+                                    </div>
+                                </div>
+                            </details>
                         </article>
+                    </div>
+                </div>
+
+                <div class="group-section">
+                    <div class="group-header">
+                        <div class="group-title-row">
+                            <h3>Action Recognition</h3>
+                            <span class="group-tag">Action Perception</span>
+                        </div>
+                        <p class="group-description">Tasks: Action_Recognition(Video-MME), fine_grained_action(MVBench)...</p>
+                    </div>
+                    <div class="card-grid">
                         <article class="example-card">
-                            <h4 class="example-title">Counterfactual</h4>
-                            <p class="tasks">Tasks: counterfactual_inference(MVBench)</p>
+                            <details class="example-details">
+                                <summary>查看示例</summary>
+                                <div class="example-body">
+                                    <div class="example-prompt">
+                                        <p class="tip">Prompt:</p>
+                                        <pre>视频中的人正在做什么运动？</pre>
+                                    </div>
+                                    <div class="example-video">
+                                        <video controls muted preload="metadata" src="videos/action_recognition.mp4"></video>
+                                        <p class="video-path">videos/action_recognition.mp4</p>
+                                    </div>
+                                </div>
+                            </details>
+                        </article>
+                    </div>
+                </div>
+
+                <div class="group-section">
+                    <div class="group-header">
+                        <div class="group-title-row">
+                            <h3>Action count</h3>
+                            <span class="group-tag">Action Perception</span>
+                        </div>
+                        <p class="group-description">Tasks: action_count(TOMATO)</p>
+                    </div>
+                    <div class="card-grid">
+                        <article class="example-card">
+                            <details class="example-details">
+                                <summary>查看示例</summary>
+                                <div class="example-body">
+                                    <div class="example-prompt">
+                                        <p class="tip">Prompt:</p>
+                                        <pre>这个人跳了多少次？</pre>
+                                    </div>
+                                    <div class="example-video">
+                                        <video controls muted preload="metadata" src="videos/action_count.mp4"></video>
+                                        <p class="video-path">videos/action_count.mp4</p>
+                                    </div>
+                                </div>
+                            </details>
+                        </article>
+                    </div>
+                </div>
+
+                <div class="group-section">
+                    <div class="group-header">
+                        <div class="group-title-row">
+                            <h3>Pose recognition</h3>
+                            <span class="group-tag">Action Perception</span>
+                        </div>
+                        <p class="group-description">Tasks: fine_grained_pose(MVBench)</p>
+                    </div>
+                    <div class="card-grid">
+                        <article class="example-card">
+                            <details class="example-details">
+                                <summary>查看示例</summary>
+                                <div class="example-body">
+                                    <div class="example-prompt">
+                                        <p class="tip">Prompt:</p>
+                                        <pre>描述视频中人物的瑜伽姿势。</pre>
+                                    </div>
+                                    <div class="example-video">
+                                        <video controls muted preload="metadata" src="videos/pose_recognition.mp4"></video>
+                                        <p class="video-path">videos/pose_recognition.mp4</p>
+                                    </div>
+                                </div>
+                            </details>
+                        </article>
+                    </div>
+                </div>
+
+                <div class="group-section">
+                    <div class="group-header">
+                        <div class="group-title-row">
+                            <h3>Motion Perception</h3>
+                            <span class="group-tag">Action Perception</span>
+                        </div>
+                        <p class="group-description">Tasks: velocity_frequency, shape_trend, rotation</p>
+                    </div>
+                    <div class="card-grid">
+                        <article class="example-card">
+                            <details class="example-details">
+                                <summary>查看示例</summary>
+                                <div class="example-body">
+                                    <div class="example-prompt">
+                                        <p class="tip">Prompt:</p>
+                                        <pre>视频中的风车是顺时针还是逆时针旋转？</pre>
+                                    </div>
+                                    <div class="example-video">
+                                        <video controls muted preload="metadata" src="videos/motion_perception.mp4"></video>
+                                        <p class="video-path">videos/motion_perception.mp4</p>
+                                    </div>
+                                </div>
+                            </details>
+                        </article>
+                    </div>
+                </div>
+
+                <div class="group-section">
+                    <div class="group-header">
+                        <div class="group-title-row">
+                            <h3>State Transition</h3>
+                            <span class="group-tag">Action Perception</span>
+                        </div>
+                        <p class="group-description">Tasks: state_change(MVBench)+Scene Transition+Hallucination(VidHalluc)</p>
+                    </div>
+                    <div class="card-grid">
+                        <article class="example-card">
+                            <details class="example-details">
+                                <summary>查看示例</summary>
+                                <div class="example-body">
+                                    <div class="example-prompt">
+                                        <p class="tip">Prompt:</p>
+                                        <pre>视频中冰块的状态是如何变化的？</pre>
+                                    </div>
+                                    <div class="example-video">
+                                        <video controls muted preload="metadata" src="videos/state_transition.mp4"></video>
+                                        <p class="video-path">videos/state_transition.mp4</p>
+                                    </div>
+                                </div>
+                            </details>
+                        </article>
+                    </div>
+                </div>
+
+                <div class="group-section">
+                    <div class="group-header">
+                        <div class="group-title-row">
+                            <h3>Spatial relations</h3>
+                            <span class="group-tag">Relational Reasoning</span>
+                        </div>
+                        <p class="group-description">Tasks: Spatial_Perception(Video-MME), Spatial_Reasoning(Video-MME)...</p>
+                    </div>
+                    <div class="card-grid">
+                        <article class="example-card">
+                            <details class="example-details">
+                                <summary>查看示例</summary>
+                                <div class="example-body">
+                                    <div class="example-prompt">
+                                        <p class="tip">Prompt:</p>
+                                        <pre>红球在蓝球的左边还是右边？</pre>
+                                    </div>
+                                    <div class="example-video">
+                                        <video controls muted preload="metadata" src="videos/spatial_relations.mp4"></video>
+                                        <p class="video-path">videos/spatial_relations.mp4</p>
+                                    </div>
+                                </div>
+                            </details>
+                        </article>
+                    </div>
+                </div>
+
+                <div class="group-section">
+                    <div class="group-header">
+                        <div class="group-title-row">
+                            <h3>Temporal relations</h3>
+                            <span class="group-tag">Relational Reasoning</span>
+                        </div>
+                        <p class="group-description">Tasks: Temporal_Perception(Video-MME), Temporal_Reasoning(Video-MME)...</p>
+                    </div>
+                    <div class="card-grid">
+                        <article class="example-card">
+                            <details class="example-details">
+                                <summary>查看示例</summary>
+                                <div class="example-body">
+                                    <div class="example-prompt">
+                                        <p class="tip">Prompt:</p>
+                                        <pre>是先开门还是先开灯？</pre>
+                                    </div>
+                                    <div class="example-video">
+                                        <video controls muted preload="metadata" src="videos/temporal_relations.mp4"></video>
+                                        <p class="video-path">videos/temporal_relations.mp4</p>
+                                    </div>
+                                </div>
+                            </details>
+                        </article>
+                    </div>
+                </div>
+
+                <div class="group-section">
+                    <div class="group-header">
+                        <div class="group-title-row">
+                            <h3>Interaction Relations</h3>
+                            <span class="group-tag">Relational Reasoning</span>
+                        </div>
+                        <p class="group-description">Tasks: object_interaction(MVBench)</p>
+                    </div>
+                    <div class="card-grid">
+                        <article class="example-card">
+                            <details class="example-details">
+                                <summary>查看示例</summary>
+                                <div class="example-body">
+                                    <div class="example-prompt">
+                                        <p class="tip">Prompt:</p>
+                                        <pre>视频中人与狗是如何互动的？</pre>
+                                    </div>
+                                    <div class="example-video">
+                                        <video controls muted preload="metadata" src="videos/interaction_relations.mp4"></video>
+                                        <p class="video-path">videos/interaction_relations.mp4</p>
+                                    </div>
+                                </div>
+                            </details>
+                        </article>
+                    </div>
+                </div>
+
+                <div class="group-section">
+                    <div class="group-header">
+                        <div class="group-title-row">
+                            <h3>Integrative</h3>
+                            <span class="group-tag">Comprehensive Reasoning</span>
+                        </div>
+                        <p class="group-description">Tasks: episodic_reasoning(MVBench), 全局多模(...)information_Synopsis(Video-MME)</p>
+                    </div>
+                    <div class="card-grid">
+                        <article class="example-card">
+                            <details class="example-details">
+                                <summary>查看示例</summary>
+                                <div class="example-body">
+                                    <div class="example-prompt">
+                                        <p class="tip">Prompt:</p>
+                                        <pre>总结视频中烹饪的完整步骤。</pre>
+                                    </div>
+                                    <div class="example-video">
+                                        <video controls muted preload="metadata" src="videos/integrative.mp4"></video>
+                                        <p class="video-path">videos/integrative.mp4</p>
+                                    </div>
+                                </div>
+                            </details>
+                        </article>
+                    </div>
+                </div>
+
+                <div class="group-section">
+                    <div class="group-header">
+                        <div class="group-title-row">
+                            <h3>Predictive & Intentional</h3>
+                            <span class="group-tag">Comprehensive Reasoning</span>
+                        </div>
+                        <p class="group-description">Tasks: egocentric_navigation(MVBench), Action_Reasoning(VideoMME), action_prediction(MVBench)</p>
+                    </div>
+                    <div class="card-grid">
+                        <article class="example-card">
+                            <details class="example-details">
+                                <summary>查看示例</summary>
+                                <div class="example-body">
+                                    <div class="example-prompt">
+                                        <p class="tip">Prompt:</p>
+                                        <pre>根据视频，预测这个人接下来会走向哪里？</pre>
+                                    </div>
+                                    <div class="example-video">
+                                        <video controls muted preload="metadata" src="videos/predictive_intentional.mp4"></video>
+                                        <p class="video-path">videos/predictive_intentional.mp4</p>
+                                    </div>
+                                </div>
+                            </details>
+                        </article>
+                    </div>
+                </div>
+
+                <div class="group-section">
+                    <div class="group-header">
+                        <div class="group-title-row">
+                            <h3>Counterfactual</h3>
+                            <span class="group-tag">Comprehensive Reasoning</span>
+                        </div>
+                        <p class="group-description">Tasks: counterfactual_inference(MVBench)</p>
+                    </div>
+                    <div class="card-grid">
+                        <article class="example-card">
+                            <details class="example-details">
+                                <summary>查看示例</summary>
+                                <div class="example-body">
+                                    <div class="example-prompt">
+                                        <p class="tip">Prompt:</p>
+                                        <pre>如果视频中的人没有拉手刹，会发生什么？</pre>
+                                    </div>
+                                    <div class="example-video">
+                                        <video controls muted preload="metadata" src="videos/counterfactual.mp4"></video>
+                                        <p class="video-path">videos/counterfactual.mp4</p>
+                                    </div>
+                                </div>
+                            </details>
                         </article>
                     </div>
                 </div>
@@ -221,7 +538,7 @@
 
         <section class="section" id="factual">
             <div class="section-header">
-                <h2>事实性幻觉 (Factual Hallucination)</h2>
+                <h2>Factual Hallucination</h2>
             </div>
             
             <div class="placeholder-box">
