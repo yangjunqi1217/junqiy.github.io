@@ -16,6 +16,7 @@
             </div>
             <nav class="top-nav">
                 <a href="#faithfulness">Faithfulness</a>
+                <a href="#model-performance">Model Performance</a>
                 <a href="#factual">Factual Hallucination</a>
                 <a href="#">相关论文</a>
                 <a href="#">GitHub</a>
@@ -64,6 +65,7 @@
 
     <main>
 
+        <!-- Faithfulness 维度示例 -->
         <section class="section" id="faithfulness">
             <div class="section-header">
                 <h2>Faithfulness</h2>
@@ -428,6 +430,39 @@
             </div>
         </section>
 
+        <!-- 模型表现模块 -->
+        <section class="section" id="model-performance">
+            <div class="section-header">
+                <h2>Model Performance</h2>
+                <div class="section-tagline">不同模型在各个 Faithfulness 维度上的表现</div>
+            </div>
+
+            <p class="section-intro">
+                下表展示了多个模型在每个 <strong>Faithfulness 维度</strong> 上的表现情况。
+                数值可以是准确率、平均得分或通过率（统一为 0–100 区间）。每一行中最高分的模型会被自动高亮标记。
+            </p>
+
+            <div class="perf-legend">
+                <span class="legend-dot best"></span> 行内最高分
+                <span class="legend-sep">|</span>
+                在下方 <code>&lt;script&gt;</code> 中直接编辑 <code>MODEL_LIST</code> 和 <code>dimensionResults</code> 即可更新该表。
+            </div>
+
+            <div class="table-wrapper">
+                <table class="perf-table">
+                    <thead>
+                        <tr id="perf-head-row">
+                            <!-- JS 填充：Dimension + models -->
+                        </tr>
+                    </thead>
+                    <tbody id="perf-body">
+                        <!-- JS 填充：每个维度一行 -->
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Factual 占位 -->
         <section class="section" id="factual">
             <div class="section-header">
                 <h2>Factual Hallucination</h2>
@@ -446,5 +481,278 @@
         <p>© 2025 V-HalluBench. All rights reserved.</p>
     </footer>
 
+    <!-- ============ 模型表现：数据与渲染脚本 ============ -->
+    <script>
+        // 1. 你要比较的模型列表（随便改名字）
+        const MODEL_LIST = [
+            "Model-A",
+            "Model-B",
+            "Model-C"
+        ];
+
+        // 2. 每个 Faithfulness 维度的分数
+        //   - name: 维度名称（跟上面卡片一致）
+        //   - group: 一级类别（Entity Perception / Action Perception...）
+        //   - groupZh: 一级类别中文
+        //   - scores: 各模型分数（0–100），缺省则显示为 "—"
+        const dimensionResults = [
+            {
+                id: "entity_existence",
+                name: "Entity Existence",
+                group: "Entity Perception",
+                groupZh: "实体感知",
+                scores: {
+                    "Model-A": 87.5,
+                    "Model-B": 81.2,
+                    "Model-C": 74.3
+                }
+            },
+            {
+                id: "object_recognition",
+                name: "Object Recognition",
+                group: "Entity Perception",
+                groupZh: "实体感知",
+                scores: {
+                    "Model-A": 85.3,
+                    "Model-B": 79.6,
+                    "Model-C": 70.4
+                }
+            },
+            {
+                id: "static_attributes",
+                name: "Static Attributes",
+                group: "Entity Perception",
+                groupZh: "实体感知",
+                scores: {
+                    "Model-A": 84.0,
+                    "Model-B": 77.8,
+                    "Model-C": 69.1
+                }
+            },
+            {
+                id: "moving_attributes",
+                name: "Moving Attributes",
+                group: "Entity Perception",
+                groupZh: "实体感知",
+                scores: {
+                    "Model-A": 82.4,
+                    "Model-B": 75.0,
+                    "Model-C": 66.7
+                }
+            },
+            {
+                id: "ocr",
+                name: "OCR",
+                group: "Entity Perception",
+                groupZh: "实体感知",
+                scores: {
+                    "Model-A": 80.1,
+                    "Model-B": 72.5,
+                    "Model-C": 61.8
+                }
+            },
+            {
+                id: "entity_counting",
+                name: "Entity Counting",
+                group: "Entity Perception",
+                groupZh: "实体感知",
+                scores: {
+                    "Model-A": 83.7,
+                    "Model-B": 76.3,
+                    "Model-C": 68.0
+                }
+            },
+            {
+                id: "action_recognition",
+                name: "Action Recognition",
+                group: "Action Perception",
+                groupZh: "动作感知",
+                scores: {
+                    "Model-A": 81.9,
+                    "Model-B": 75.4,
+                    "Model-C": 67.2
+                }
+            },
+            {
+                id: "action_count",
+                name: "Action count",
+                group: "Action Perception",
+                groupZh: "动作感知",
+                scores: {
+                    "Model-A": 80.5,
+                    "Model-B": 73.1,
+                    "Model-C": 64.8
+                }
+            },
+            {
+                id: "pose_recognition",
+                name: "Pose recognition",
+                group: "Action Perception",
+                groupZh: "动作感知",
+                scores: {
+                    "Model-A": 79.0,
+                    "Model-B": 71.8,
+                    "Model-C": 63.0
+                }
+            },
+            {
+                id: "motion_perception",
+                name: "Motion Perception",
+                group: "Action Perception",
+                groupZh: "动作感知",
+                scores: {
+                    "Model-A": 82.2,
+                    "Model-B": 74.3,
+                    "Model-C": 65.5
+                }
+            },
+            {
+                id: "state_transition",
+                name: "State Transition",
+                group: "Action Perception",
+                groupZh: "动作感知",
+                scores: {
+                    "Model-A": 78.6,
+                    "Model-B": 72.0,
+                    "Model-C": 62.9
+                }
+            },
+            {
+                id: "spatial_relations",
+                name: "Spatial relations",
+                group: "Relational Reasoning",
+                groupZh: "关系推理",
+                scores: {
+                    "Model-A": 84.4,
+                    "Model-B": 77.2,
+                    "Model-C": 69.9
+                }
+            },
+            {
+                id: "temporal_relations",
+                name: "Temporal relations",
+                group: "Relational Reasoning",
+                groupZh: "关系推理",
+                scores: {
+                    "Model-A": 82.0,
+                    "Model-B": 75.1,
+                    "Model-C": 66.3
+                }
+            },
+            {
+                id: "interaction_relations",
+                name: "Interaction Relations",
+                group: "Relational Reasoning",
+                groupZh: "关系推理",
+                scores: {
+                    "Model-A": 83.1,
+                    "Model-B": 76.0,
+                    "Model-C": 67.5
+                }
+            },
+            {
+                id: "integrative",
+                name: "Integrative",
+                group: "Comprehensive Reasoning",
+                groupZh: "综合推理",
+                scores: {
+                    "Model-A": 80.8,
+                    "Model-B": 74.0,
+                    "Model-C": 65.2
+                }
+            },
+            {
+                id: "predictive_intentional",
+                name: "Predictive & Intentional",
+                group: "Comprehensive Reasoning",
+                groupZh: "综合推理",
+                scores: {
+                    "Model-A": 81.5,
+                    "Model-B": 75.3,
+                    "Model-C": 66.0
+                }
+            },
+            {
+                id: "counterfactual",
+                name: "Counterfactual",
+                group: "Comprehensive Reasoning",
+                groupZh: "综合推理",
+                scores: {
+                    "Model-A": 79.2,
+                    "Model-B": 72.4,
+                    "Model-C": 63.8
+                }
+            }
+        ];
+
+        // 3. 渲染模型表现表格
+        function renderPerformanceTable() {
+            const headRow = document.getElementById("perf-head-row");
+            const body = document.getElementById("perf-body");
+            if (!headRow || !body) return;
+
+            headRow.innerHTML = "";
+            body.innerHTML = "";
+
+            // 表头：Dimension + 模型
+            const dimTh = document.createElement("th");
+            dimTh.textContent = "Dimension";
+            headRow.appendChild(dimTh);
+
+            MODEL_LIST.forEach(model => {
+                const th = document.createElement("th");
+                th.textContent = model;
+                headRow.appendChild(th);
+            });
+
+            // 每个维度一行
+            dimensionResults.forEach(dim => {
+                const tr = document.createElement("tr");
+
+                const labelTd = document.createElement("td");
+                labelTd.innerHTML = `
+                    <div class="dim-name">${dim.name}</div>
+                    <div class="dim-meta">${dim.group}${dim.groupZh ? " / " + dim.groupZh : ""}</div>
+                `;
+                tr.appendChild(labelTd);
+
+                let maxScore = -Infinity;
+                const cells = [];
+
+                MODEL_LIST.forEach(model => {
+                    const td = document.createElement("td");
+                    const val = dim.scores && typeof dim.scores[model] === "number"
+                        ? dim.scores[model]
+                        : null;
+
+                    if (val === null) {
+                        td.textContent = "—";
+                        td.classList.add("score-empty");
+                    } else {
+                        td.textContent = val.toFixed(1);
+                        td.dataset.score = String(val);
+                        if (val > maxScore) maxScore = val;
+                    }
+
+                    cells.push(td);
+                    tr.appendChild(td);
+                });
+
+                // 高亮最高分
+                if (maxScore > -Infinity) {
+                    cells.forEach(td => {
+                        const v = parseFloat(td.dataset.score);
+                        if (!isNaN(v) && v === maxScore) {
+                            td.classList.add("score-best");
+                        }
+                    });
+                }
+
+                body.appendChild(tr);
+            });
+        }
+
+        document.addEventListener("DOMContentLoaded", renderPerformanceTable);
+    </script>
 </body>
 </html>
